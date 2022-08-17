@@ -84,6 +84,7 @@ function(cu_add_library LIBRARY_NAME)
         # rpath settings
         BUILD_RPATH_USE_ORIGIN TRUE
         INSTALL_RPATH "\$ORIGIN;libs;lib;bin;modules;../libs;../lib;${cu_RPATH}"
+        VERSION ${CMAKE_PROJECT_VERSION}
         )
     if (NOT MSVC)
         set_target_properties(${LIBRARY_NAME} PROPERTIES  CUDA_STANDARD 14)
@@ -131,9 +132,9 @@ function(cu_add_library LIBRARY_NAME)
             ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config.cmake 
             ${CMAKE_CURRENT_BINARY_DIR}/gen/${LIBRARY_NAME}-config-version.cmake
         DESTINATION 
-            lib/cmake/${LIBRARY_NAME})
+            share/${LIBRARY_NAME})
         
-    install(EXPORT ${LIBRARY_NAME}-targets NAMESPACE ${cu_NAMESPACE}:: DESTINATION lib/cmake/${LIBRARY_NAME})
+    install(EXPORT ${LIBRARY_NAME}-targets NAMESPACE ${cu_NAMESPACE}:: DESTINATION share/${LIBRARY_NAME})
     
     install(DIRECTORY
             include/
