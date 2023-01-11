@@ -105,9 +105,11 @@ function(cu_add_library LIBRARY_NAME)
     if (cu_PRIVATE_DEFS)
         target_compile_definitions(${LIBRARY_NAME} ${LINK_INTERFACE_PRIVATE} ${cu_PRIVATE_DEFS})
     endif()
-    target_compile_options(${LIBRARY_NAME} PRIVATE
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:MSVC>>:/MP>
-    )
+    if (NOT cu_INTERFACE)
+        target_compile_options(${LIBRARY_NAME} PRIVATE
+            $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:MSVC>>:/MP>
+        )
+    endif()
     if (cu_PRIVATE_COMPILE_OPTIONS)
         target_compile_options(${LIBRARY_NAME} ${LINK_INTERFACE_PRIVATE} ${cu_PRIVATE_COMPILE_OPTIONS})
     endif()
